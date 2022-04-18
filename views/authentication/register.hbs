@@ -125,14 +125,14 @@
           </div>
         </div>
       <!-- New Arrivals -->
-      <form id="reg-form" action="/register ">
+      <form method="post">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input name="password" type="password" class="form-control" id="password" placeholder="Password">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Full Name</label>
@@ -147,45 +147,18 @@
             <input type="text" class="form-control" id="phonenumber" placeholder="Phone number">
           </div>
           <button type="submit" class="btn btn-primary">Register</button>
+          <div class="error">{{error}}</div>
       </form>
+
     </div>
-    <script>
-      const form = document.getElementById("reg-form");
-      form.addEventListener("submit",registerUser);
-      async function registerUser(event){
-        event.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const fullname = document.getElementById("fullname").value;
-        const address = document.getElementById("address").value;
-        const phonenumber = document.getElementById("phonenumber").value;
-        const result = await fetch('/api/register',{
-          method:"POST",
-          headers:{
-            'Content-Type':"application/json"
-          },
-          body:JSON.stringify({
-            email,password,fullname,address,phonenumber
-          })
-        }).then((res)=>res.json())
-        console.log(result);
-        if(result.status==="ok"){
-          alert("Success");
-          window.location.href="/";
-        }else{
-          alert("That email is exist");
-        }
-      }
-    </script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    {{!-- <script src="plugins/Isotope/isotope.pkgd.min.js"></script> --}}
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="js/custom.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./products.js"></script> 
+    <script>
+      $(function(){
+        $("#email").on("change",function(){
+          console.log(this);
+        })
+      })
+    </script>
   </body>
 </html>
 

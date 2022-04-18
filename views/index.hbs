@@ -59,10 +59,17 @@
                       </a>
                       <ul class="account_selection">
                         <li>
+                         {{#if user}}
+                             <a href="/logout"
+                            ><i class="fa fa-sign-in" aria-hidden="true"></i
+                            >Sign Out</a
+                          >
+                         {{else}}
                           <a href="/login"
                             ><i class="fa fa-sign-in" aria-hidden="true"></i
                             >Sign In</a
                           >
+                          {{/if}}
                         </li>
                         <li>
                           <a href="/register"
@@ -126,6 +133,26 @@
           </div>
         </div>
       </header>
+      <!-- Slider -->
+
+      <div
+        class="main_slider"
+        style="background-image: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm312-kwan-01_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=65de7d93308331213344664ef5963596')"
+      >
+        <div class="container fill_height">
+          <div class="row align-items-center fill_height">
+            <div class="col">
+              <div class="main_slider_content">
+                <h6>VN TECH</h6>
+                <h1>Get up to 30% Off New Arrivals</h1>
+                <div class="red_button shop_now_button">
+                  <a href="#">shop now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- New Arrivals -->
       <div class="new_arrivals">
         <div class="container">

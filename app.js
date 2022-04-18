@@ -5,16 +5,27 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { connectionDB } = require("./db/connect");
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-const authentication = require("./controllers/authentication");
+const authenticationRouter = require("./controllers/authentication");
 const User = require("./Models/User");
 const bcrypt = require("bcryptjs");
 const products = require("./routes/products");
-const jwt = require("jsonwebtoken");
-const { token } = require("morgan");
-const { json } = require("express");
+const passport = require("./controllers/authentication/passport");
 require("dotenv").config();
 var app = express();
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.authenticate("session"));
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
 // view engine setup
 app.use(express.static(path.join(__dirname, "views")));
 app.set("views", path.join(__dirname, "views"));
@@ -24,22 +35,21 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use("/", authenticationRouter);
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/", authentication);
 
-app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email }).lean();
-  if (!user) {
-    return res.json({ status: "Error", error: "Invalid username/password" });
-  }
-  if (await bcrypt.compare(password, user.password)) {
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET);
-    return res.json({ status: "ok", data: token });
-  }
-  return res.json({ status: "Error", error: "Invalid username/password" });
-});
+// app.post("/api/login", async (req, res) => {
+//   const { email, password } = req.body;
+//   const user = await User.findOne({ email }).lean();
+//   if (!user) {
+//     return res.json({ status: "Error", error: "Invalid username/password" });
+//   }
+//   if (await bcrypt.compare(password, user.password)) {
+//     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET);
+//     return res.json({ status: "ok", data: token });
+//   }
+//   return res.json({ status: "Error", error: "Invalid username/password" });
+// });
 app.post("/api/change-password", async (req, res) => {
   const { token, newPassword: plainTextPassword } = req.body;
   console.log(req.body);
@@ -59,43 +69,7 @@ app.post("/api/change-password", async (req, res) => {
     res.json({ status: "Error" });
   }
 });
-app.post("/api/register", async (req, res) => {
-  const {
-    email,
-    password: plainTextPassword,
-    fullname,
-    address,
-    phonenumber,
-  } = req.body;
-  console.log(req.body);
-  if (!email || typeof email !== "string") {
-    return json({ status: "error", error: "Invalid email" });
-  }
-  if (!plainTextPassword || typeof plainTextPassword !== "string") {
-    return json({ status: "error", error: "Invalid password" });
-  }
-  if (plainTextPassword.length < 5) {
-    return res.json({
-      status: "Error",
-      error: "Password too smail.",
-    });
-  }
-  const password = await bcrypt.hash(plainTextPassword, 10);
-  try {
-    const response = await User.create({
-      email,
-      password,
-      fullname,
-      address,
-      phonenumber,
-    });
-    console.log("User create successfully !!", response);
-    res.json({ status: "ok" });
-  } catch (error) {
-    console.log(error);
-    return res.json({ status: "error" });
-  }
-});
+
 app.get("/api/v1/user", async (req, res) => {
   try {
     const emailLoginUser = localStorage.getItem("email");
@@ -131,4 +105,5 @@ const connectionDb = async () => {
   }
 };
 connectionDb();
+
 module.exports = app;

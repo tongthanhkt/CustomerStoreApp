@@ -124,14 +124,14 @@
           </div>
         </div>
       <!-- New Arrivals -->
-      <form id="login" action="/register ">
+      <form id="login" method="POST">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input name="password" type="password" class="form-control" id="password" placeholder="Password">
           </div>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -139,45 +139,7 @@
           <button type="submit" class="btn btn-primary">Log in</button>
       </form>
     </div>
-    <script>
-      const form = document.getElementById("login");
-      form.addEventListener("submit",registerUser);
-      async function registerUser(event){
-        event.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const result = await fetch('/api/login',{
-          method:"POST",
-          headers:{
-            'Content-Type':"application/json"
-          },
-          body:JSON.stringify({
-            email,password
-          })
-        }).then((res)=>res.json())
-        console.log(result);
-        if(result.status==="ok"){
-         console.log("Got the token :",result.data);
-         localStorage.setItem("token",result.data);
-         localStorage.setItem("email",email);
-         console.log(localStorage.getItem("token"));
-         alert("Login successfully !!");
-         window.location.href="/home";
-        }else{
-          alert("Login fail");
-         console.log("Error");
-        }
-      }
-    </script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    {{!-- <script src="plugins/Isotope/isotope.pkgd.min.js"></script> --}}
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./products.js"></script> 
+    
   </body>
 </html>
 
