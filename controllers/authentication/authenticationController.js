@@ -22,9 +22,7 @@ exports.loginShow = function (req, res) {
   if (req.user) {
     res.redirect("/");
   } else {
-    res.render("authentication/login", {
-      title: "Login",
-    });
+    res.render("authentication/login");
   }
 };
 exports.logout = function (req, res) {
