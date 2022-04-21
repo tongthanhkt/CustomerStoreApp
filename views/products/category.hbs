@@ -10,24 +10,15 @@
             </div>
           </div>
           <div class="row align-items-center">
-            
             <div class="col text-center">
-              
               <div class="new_arrivals_sorting">
-                <form method="post">
-                    <div class="input-group" style="margin-bottom: 50px;">
-                    <input name="searchValue" type="search" class="form-control rounded" placeholder="Bạn tìm gì..." aria-label="Search" aria-describedby="search-addon" />
-                    <button type="Submit" class="btn btn-outline-primary">search</button>
-                </div>
-                </form>
                 <ul
                   class="arrivals_grid_sorting clearfix button-group filters-button-group"
                 >
-                  <li
-                    class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                  <a href="/products"><li
+                    class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center "
                   >
-                    <a href="/products">All</a>
-                  </li>
+                  All</li></a>
                  <a href="/products/smartphone"> <li
                     class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
                   >
@@ -35,11 +26,13 @@
                   </li></a>
                   <a href="/products/laptop"><li
                     class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                    data-filter=".accessories"
                   >
                     Laptop
                   </li></a>
                   <a href="/products/accessory"><li
                     class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                    data-filter=".men"
                   >
                     Accessory
                   </li></a>
@@ -83,13 +76,7 @@
                 </div>
                 {{/products}}
               </div>
-                <div class="product__pagination">
-                    <a href="?page={{previousPage}}" class="prev"><i class="fa fa-long-arrow-left"></i></a>
-                    {{#pages}}
-                        <a href="?page={{.}}">{{.}}</a>
-                    {{/pages}}
-                    <a href="?page={{nextPage}}"><i class="fa fa-long-arrow-right"></i></a>
-                </div>
+               
             </div>
           
           </div>

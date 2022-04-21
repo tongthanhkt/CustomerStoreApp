@@ -92,27 +92,15 @@
                 <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
                   <div class="single_product_thumbnails">
                     <ul>
-                      <li>
+                     
+                      <li class="">
                         <img
-                          src="/images/single_1_thumb.jpg"
+                          src="{{product.urlImage}}"
                           alt=""
-                          data-image="/images/single_1.jpg"
+                          style="width: 300px;"
                         />
                       </li>
-                      <li class="active">
-                        <img
-                          src="/images/single_2_thumb.jpg"
-                          alt=""
-                          data-image="/images/single_2.jpg"
-                        />
-                      </li>
-                      <li>
-                        <img
-                          src="/images/single_3_thumb.jpg"
-                          alt=""
-                          data-image="/images/single_3.jpg"
-                        />
-                      </li>
+                     
                     </ul>
                   </div>
                 </div>
@@ -128,13 +116,12 @@
             </div>
           </div>
           <div class="col-lg-5">
+            {{#if product}}
             <div class="product_details">
               <div class="product_details_title">
-                <h2>Pocket cotton sweatshirt</h2>
+                <h2>{{product.nameProduct}}</h2>
                 <p>
-                  Nam tempus turpis at metus scelerisque placerat nulla
-                  deumantos solicitud felis. Pellentesque diam dolor, elementum
-                  etos lobortis des mollis ut...
+                 {{product.description}}
                 </p>
               </div>
               <div
@@ -142,8 +129,7 @@
               >
                 <span class="ti-truck"></span><span>free delivery</span>
               </div>
-              <div class="original_price">$629.99</div>
-              <div class="product_price">$495.00</div>
+              <div class="product_price">{{product.priceProduct}}</div>
               <ul class="star_rating">
                 <li><i class="fa fa-star" aria-hidden="true"></i></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i></li>
@@ -180,6 +166,7 @@
                 ></div>
               </div>
             </div>
+            {{/if}}
           </div>
         </div>
       </div>
