@@ -12,6 +12,7 @@ exports.list = async (req, res, next) => {
   if (!page || isNaN(page)) page = 1;
   else page = parseInt(page);
   const products = await list(page - 1, ITEMS_PER_PAGE);
+  console.log(products);
   const sumProducts = await countProducts();
   const count = sumProducts.length;
   const totalPage = Math.ceil(count / ITEMS_PER_PAGE);

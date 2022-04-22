@@ -1,15 +1,16 @@
 var express = require("express");
+var app = express();
+const { engine } = require("express-handlebars");
+const expressHandlebarsSections = require("express-handlebars-sections");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 const { connectionDB } = require("./db/connect");
 var indexRouter = require("./routes/index");
 const authenticationRouter = require("./controllers/authentication");
-const User = require("./Models/User");
-const bcrypt = require("bcryptjs");
 const passport = require("./controllers/authentication/passport");
 const productsRouter = require("./controllers/products");
 require("dotenv").config();
-var app = express();
+
 const session = require("express-session");
 app.use(
   session({
@@ -23,17 +24,38 @@ app.use(function (req, res, next) {
   res.locals.user = req.user;
   next();
 });
-// view engine setup
 
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
+app.engine(
+  "handlebars",
+  engine({
+    defaultLayout: "main",
+    helpers: {
+      section: expressHandlebarsSections(),
+    },
+  })
+);
+app.set("view engine", "handlebars");
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/", authenticationRouter);
 app.use("/", indexRouter);
-app.use(express.static(path.join(__dirname, "public")));
 app.use("/products", productsRouter);
+
+//database set up
+const connectionDb = async () => {
+  try {
+    await connectionDB(process.env.MONGO_URL);
+    console.log("Database connect successfully !!");
+  } catch (error) {
+    console.log(error);
+  }
+};
+connectionDb();
+// view engine setup
 
 app.use(function (req, res, next) {
   next(createError(404));
@@ -49,14 +71,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-const connectionDb = async () => {
-  try {
-    await connectionDB(process.env.MONGO_URL);
-    console.log("Database connect successfully !!");
-  } catch (error) {
-    console.log(error);
-  }
-};
-connectionDb();
 
 module.exports = app;
