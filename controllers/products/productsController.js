@@ -8,11 +8,11 @@ const {
 const ITEMS_PER_PAGE = 10;
 exports.list = async (req, res, next) => {
   let { page } = req.query;
-  console.log(page);
+  // console.log(req.body);
   if (!page || isNaN(page)) page = 1;
   else page = parseInt(page);
   const products = await list(page - 1, ITEMS_PER_PAGE);
-  console.log(products);
+  // console.log(products);
   const sumProducts = await countProducts();
   const count = sumProducts.length;
   const totalPage = Math.ceil(count / ITEMS_PER_PAGE);
@@ -33,14 +33,32 @@ exports.category = async (req, res) => {
 };
 exports.detail = async (req, res) => {
   const { idProduct } = req.params;
-  console.log(idProduct);
+  // console.log(idProduct);
   const products = await getProduct(idProduct);
   const product = products[0];
   res.render("products/detail", { product });
 };
 exports.search = async (req, res) => {
   const { searchValue } = req.body;
+  console.log(req.body);
   const products = await search(searchValue);
-  console.log(products);
+  // console.log(products);
   res.render("products/category", { products });
 };
+// sort product
+exports.sort = async (req, res) => {
+  const { sort } = req.body;
+  // console.log(req.body)
+  const products = await list(0, ITEMS_PER_PAGE, sort);
+  const sumProducts = await countProducts();
+  const count = sumProducts.length;
+  const totalPage = Math.ceil(count / ITEMS_PER_PAGE);
+  const nextPage = 1;
+  const previousPage = 1;
+  res.render("products/list", {
+    products,
+    pages: Array.from(Array(totalPage).keys()).map((i) => i + 1),
+    nextPage,
+    previousPage,
+  });
+}

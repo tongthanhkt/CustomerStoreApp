@@ -1,6 +1,7 @@
 const Products = require("../../Models/Products");
-exports.list = async (offset, limit) => {
+exports.list = async (offset, limit, sortBy) => {
   return await Products.find({})
+    .sort(sortBy)
     .lean()
     .limit(limit)
     .skip(offset * limit);
