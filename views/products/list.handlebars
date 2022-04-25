@@ -58,7 +58,9 @@
                 <div class="product-item men">
                   <div class="product discount product_filter">
                     <div class="product_image">
-                      <img src="{{this.urlImage}}" />
+                      <a href="/products/{{typeProduct}}/{{_id}}">
+                        <img src="{{urlImage}}" />
+                      </a>
                     </div>
                     <div class="favorite favorite_left"></div>
                     <div
@@ -68,9 +70,9 @@
                     </div>
                     <div class="product_info">
                       <h6 class="product_name">
-                        <a href="/products/{{typeProduct}}/{{_id}}"
-                          >{{nameProduct}}</a
-                        >
+                        <a href="/products/{{typeProduct}}/{{_id}}">
+                        {{nameProduct}}
+                        </a>
                       </h6>
                       <div class="product_price">
                         {{priceProduct}}<span>{{priceProduct}}</span>
@@ -78,7 +80,7 @@
                     </div>
                   </div>
                   <div class="red_button add_to_cart_button">
-                    <a href="#">add to cart</a>
+                    <a href="#">Thêm vào giỏ hàng</a>
                   </div>
                 </div>
                 {{/products}}
