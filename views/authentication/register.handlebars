@@ -1,26 +1,33 @@
  <!-- New Arrivals -->
+<<<<<<< Updated upstream
       <form style="margin-top: 200px; margin-left:400px;width:400px" method="post">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input  name="email" type="email" class="form-control is-valid" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+=======
+      <form style="margin: 300px auto; width: 300px" method="post">
+          <div class="form-group" >
+            <label for="exampleInputEmail1" >Địa chỉ Email</label>
+            <input name="email" type="email" class="form-control is-valid" id="email" aria-describedby="emailHelp" placeholder="Enter email" >
+>>>>>>> Stashed changes
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+            <label for="exampleInputPassword1">Mật khẩu</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Password" style="margin: auto; width:300px">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Full Name</label>
+            <label for="exampleInputPassword1">Họ tên</label>
             <input type="text" class="form-control" id="fullname" placeholder="Full name">
           </div>
            <div class="form-group">
-            <label for="exampleInputPassword1">Address</label>
+            <label for="exampleInputPassword1">Địa chỉ</label>
             <input type="text" class="form-control" id="address" placeholder="Address">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Phone Number</label>
+            <label for="exampleInputPassword1">Số điện thoại</label>
             <input type="text" class="form-control" id="phonenumber" placeholder="Phone number">
           </div>
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" class="btn btn-primary">Đăng ký</button>
           <div id="error" style="color: red;">{{error}}</div>
       </form>
       {{#section 'script'}}
@@ -34,7 +41,7 @@
                   console.log("IS exist !!");
                   emailInput.addClass('is-invalid');
                     emailInput.removeClass('is-valid');
-                    $('#error').html('Email already exist');
+                    $('#error').html('Email đã tồn tại');
                 } else {
                   console.log("No exist !!");
                   emailInput.addClass('is-valid');

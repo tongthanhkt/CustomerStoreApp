@@ -15,5 +15,5 @@ exports.getProduct = async (id) => {
   return await Products.find({ _id: id }).lean();
 };
 exports.search = async (searchInput) => {
-  return await Products.find({ nameProduct: { $regex: searchInput } }).lean();
+  return await Products.find({ nameProduct: { $regex: new RegExp(searchInput,"i") } }).lean();
 };
