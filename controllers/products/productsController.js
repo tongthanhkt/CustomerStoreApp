@@ -5,7 +5,7 @@ const {
   getProduct,
   search,
 } = require("./productsService");
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 exports.list = async (req, res, next) => {
   let { page } = req.query;
   console.log(page);
