@@ -9,6 +9,7 @@ const showProfile = async (req, res) => {
       data: { user },
     } = await axios.get("api/v1/user");
     console.log(user);
+    res.render("profile")
   } catch (error) {
     console.log(error);
   }
