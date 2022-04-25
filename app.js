@@ -58,7 +58,7 @@ connectionDb();
 // view engine setup
 
 app.use(function (req, res, next) {
-  next(createError(404));
+  // next(createError(404));
 });
 
 // error handler
